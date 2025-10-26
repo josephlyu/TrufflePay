@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrufflePay - Decentralized AI Art Marketplace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: #fafafa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px 80px 60px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 0.3em;
+            color: #1a202c;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+
+        .subtitle {
+            font-size: 1.05em;
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 1.5em;
+            font-style: italic;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-top: 2em;
+            margin-bottom: 0.8em;
+            color: #1a202c;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.3em;
+        }
+
+        h3 {
+            font-size: 1.35em;
+            font-weight: 600;
+            margin-top: 1.8em;
+            margin-bottom: 0.6em;
+            color: #2d3748;
+        }
+
+        h4 {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: #4a5568;
+        }
+
+        p {
+            margin-bottom: 1.2em;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .abstract {
+            background: #f7fafc;
+            border-left: 4px solid #4299e1;
+            padding: 1.5em 2em;
+            margin: 2.5em 0;
+            font-size: 1.05em;
+        }
+
+        .demo-section {
+            background: linear-gradient(to bottom, #fafbfc, #f4f6f8);
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1.5em 2em;
+            margin: 2em 0;
+            text-align: center;
+        }
+
+        .demo-section h3 {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 0 0 1em 0;
+            letter-spacing: 0.02em;
+            text-transform: none;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .demo-button {
+            display: inline-block;
+            padding: 10px 24px;
+            background: white;
+            color: #4a5568;
+            text-decoration: none;
+            border: 1.5px solid #cbd5e0;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: all 0.2s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .demo-button:hover {
+            border-color: #4299e1;
+            color: #2b6cb0;
+            background: #f7fafc;
+        }
+
+        .video-container {
+            margin: 2.5em 0;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        ul {
+            margin: 1em 0 1.5em 2em;
+        }
+
+        li {
+            margin-bottom: 0.6em;
+        }
+
+        code {
+            background: #f7fafc;
+            padding: 0.2em 0.5em;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+            color: #d73a49;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5em;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1.5em 0;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1.2em 1.5em;
+            margin: 1.5em 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5em;
+            margin: 2em 0;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            padding: 1.5em;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-card h4 {
+            margin-top: 0;
+            color: #4299e1;
+        }
+
+        blockquote {
+            border-left: 4px solid #cbd5e0;
+            padding-left: 1.5em;
+            margin: 1.5em 0;
+            font-style: italic;
+            color: #4a5568;
+        }
+
+        .footer {
+            margin-top: 4em;
+            padding-top: 2em;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            color: #718096;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            .demo-section {
+                margin: 2em 0;
+                padding: 1.5em 1em;
+            }
+
+            .demo-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .demo-button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TrufflePay</h1>
+        <p class="subtitle">Decentralized AI Art Marketplace where Agents Negotiate, Pay and Fulfill On-chain via Arbitrum</p>
+
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/EmxwnC2oags" title="TrufflePay Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
+        <div class="demo-section">
+            <h3>Interactive Demo Snapshots</h3>
+            <div class="demo-buttons">
+                <a href="TrufflePay - AI Buyer Agent.html" class="demo-button">Buyer Agent</a>
+                <a href="NFT Portrait Viewer - TrufflePay.htm" class="demo-button">NFT Certificate</a>
+                <a href="TrufflePay - Seller Dashboard.html" class="demo-button">Seller Dashboard</a>
+            </div>
+        </div>
+
+        <div class="abstract">
+            <strong>Abstract:</strong> TrufflePay is a proof-of-concept decentralized marketplace where AI agents autonomously negotiate prices, execute payments on Arbitrum Sepolia, and fulfill AI-generated pet portrait services. The system demonstrates the AP2 (Agentic Payment Protocol) using HTTP 402 Payment Required responses, combined with MCP (Model Context Protocol) for multi-round agent-to-agent price negotiation.
+        </div>
+
+        <h2>1. Introduction</h2>
+        <p>TrufflePay demonstrates a paradigm shift in digital commerce: autonomous AI agents acting as economic actors. Unlike traditional e-commerce where humans initiate transactions, TrufflePay enables AI agents to independently discover services, negotiate prices using strategic reasoning, execute blockchain payments, and verify service delivery—all without human intervention.</p>
+
+        <p>This system combines three key technologies: <strong>AP2 (Agentic Payment Protocol)</strong> for blockchain-gated services, <strong>MCP (Model Context Protocol)</strong> for multi-round agent negotiation, and <strong>Arbitrum Layer 2</strong> for cost-effective, real-time settlement. The result is a fully autonomous marketplace where GPT-4 agents transact at machine speed with sub-dollar transaction costs.</p>
+
+        <h2>2. Key Features</h2>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>AI-to-AI Price Negotiation</h4>
+                <p>GPT-4o powered buyer and seller agents negotiate prices over 3 rounds using strategic tactics including anchoring, value justification, and calculated concessions.</p>
+            </div>
+            <div class="feature-card">
+                <h4>HTTP 402 Payment Gates</h4>
+                <p>Services are gated by on-chain payment verification using the AP2/x402 protocol, enabling trustless, permissionless payment enforcement.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Arbitrum L2 Settlement</h4>
+                <p>ERC-20 token payments settled on Arbitrum Sepolia achieve ~$0.004 transaction costs and 750ms total payment time, enabling real-time micropayments.</p>
+            </div>
+            <div class="feature-card">
+                <h4>AI Art Generation</h4>
+                <p>GPT-4 Vision analyzes pet photos with high detail, extracting breed, colors, and distinctive features. DALL-E 3 generates custom 1024x1024px artwork in multiple styles.</p>
+            </div>
+            <div class="feature-card">
+                <h4>NFT Certificates</h4>
+                <p>Premium tier includes automatic ERC-721 NFT minting on successful payment, creating verifiable on-chain proof of purchase and ownership.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Real-time Dashboards</h4>
+                <p>Buyer and seller interfaces show negotiation progress, payment status, and service fulfillment with 2-second polling for live updates.</p>
+            </div>
+        </div>
+
+        <h2>3. Technical Architecture</h2>
+
+        <h3>3.1 System Overview</h3>
+        <p>TrufflePay implements a three-layer architecture: the <strong>AI Agent Layer</strong> where GPT-4o agents make autonomous decisions, the <strong>Blockchain Layer</strong> where payments settle on Arbitrum via smart contracts, and the <strong>Service Layer</strong> where AI-generated portraits are produced using GPT-4 Vision and DALL-E 3.</p>
+
+        <p>The buyer agent receives user requirements, semantically analyzes them to select the best matching seller from a marketplace of three artists (PetPainter at 3 ENC, CartoonPup at 5 ENC, and ModernArtist at 10 ENC with NFT certificate). Once selected, the agents negotiate a final price over three rounds using the Model Context Protocol.</p>
+
+        <h3>3.2 Smart Contracts</h3>
+        <p>The system deploys three smart contracts on Arbitrum Sepolia testnet:</p>
+
+        <ul>
+            <li><strong>EncodeToken (ERC-20):</strong> A demo payment token with 18 decimals and 1000 ENC initial supply. Acts as the transaction currency throughout the marketplace.</li>
+            <li><strong>PaymentRegistry:</strong> The core AP2 protocol implementation. Provides <code>createInvoice()</code> for sellers to register payment requests, <code>payInvoice()</code> for buyers to transfer tokens to escrow, and <code>withdraw()</code> for sellers to claim funds after service delivery.</li>
+            <li><strong>PetPortraitNFT (ERC-721):</strong> Mints NFT certificates for premium purchases. Stores on-chain metadata including artist name, style, timestamp, and artwork URI.</li>
+        </ul>
+
+        <h2>4. AP2: Agentic Payment Protocol</h2>
+
+        <h3>4.1 HTTP 402 Payment Required</h3>
+        <p>AP2 leverages the HTTP 402 status code, defined in the HTTP/1.1 specification but historically unused due to lack of payment infrastructure. With blockchain verification, HTTP 402 becomes practical for AI-to-AI commerce.</p>
+
+        <p>The protocol flow works as follows:</p>
+        <ol>
+            <li><strong>Initial Request:</strong> Buyer agent requests service (e.g., <code>POST /generate</code> with pet photo)</li>
+            <li><strong>402 Response:</strong> Seller responds with <code>402 Payment Required</code> including invoice details: <code>invoiceId</code>, <code>amount</code>, <code>token</code> address, <code>registry</code> address, and <code>seller</code> address</li>
+            <li><strong>On-chain Payment:</strong> Buyer agent approves token spend and calls <code>registry.payInvoice(invoiceId)</code>, transferring funds to escrow</li>
+            <li><strong>Retry Request:</strong> Buyer retries the request including the <code>invoiceId</code> parameter</li>
+            <li><strong>Payment Verification:</strong> Seller queries <code>registry.invoices(invoiceId)</code> to verify <code>paid = true</code></li>
+            <li><strong>Service Fulfillment:</strong> Seller generates portrait and returns <code>200 OK</code> with artwork URL and NFT details (if applicable)</li>
+        </ol>
+
+        <div class="highlight-box">
+            <strong>Key Insight:</strong> This creates a trustless, permissionless payment gate without centralized payment processors. The blockchain acts as a neutral arbiter—buyers prove payment by showing on-chain state, sellers verify independently by querying the same contract.
+        </div>
+
+        <h3>4.2 Payment Verification</h3>
+        <p>Sellers verify payments by querying the PaymentRegistry smart contract. The contract exposes a public <code>invoices</code> mapping that returns the invoice struct containing seller address, token address, amount, and paid status. This read-only operation costs zero gas and completes in milliseconds.</p>
+
+        <h2>5. MCP: Model Context Protocol for Negotiation</h2>
+
+        <h3>5.1 Three-Round Strategic Negotiation</h3>
+        <p>TrufflePay implements multi-round price negotiation where GPT-4o agents employ tactical reasoning rather than simple averaging. Both buyer and seller agents receive strategic directives based on negotiation research and game theory.</p>
+
+        <h4>Round 1 - Initial Positions</h4>
+        <ul>
+            <li><strong>Buyer Tactic: "Anchor Low"</strong> - Offers 60-70% of asking price to set a favorable starting point. Cites budget constraints and market rates.</li>
+            <li><strong>Seller Tactic: "Value Justification"</strong> - Counters at 85-95% of asking price. Emphasizes service quality, expertise, and differentiation.</li>
+        </ul>
+
+        <h4>Round 2 - Strategic Concessions</h4>
+        <ul>
+            <li><strong>Buyer Tactic: "Strategic Concession"</strong> - Increases offer to 75-85%. Demonstrates willingness to compromise while signaling nearing budget limit.</li>
+            <li><strong>Seller Tactic: "Calculated Concession"</strong> - Lowers counter to 80-90%. Shows flexibility while defending value proposition.</li>
+        </ul>
+
+        <h4>Round 3 - Final Agreement</h4>
+        <ul>
+            <li><strong>System Calculates Midpoint:</strong> If no early agreement, the system calculates a fair midpoint between the last buyer offer and seller counter, constrained by seller's minimum price and buyer's maximum budget.</li>
+            <li><strong>Mutual Explicit Acceptance:</strong> Both agents generate acceptance messages (e.g., "I accept 2.48 ENC. Let's proceed!" and "Agreed! 2.48 ENC is acceptable.").</li>
+        </ul>
+
+        <h3>5.2 Agent Context and Decision Making</h3>
+        <p>Each agent receives comprehensive context including current round, previous offers, tactical guidelines, and acceptance criteria. Agents generate structured JSON responses containing their offer/counter-offer, a natural language message explaining their reasoning, the tactic employed, and an acceptance boolean.</p>
+
+        <p>The negotiation history is displayed in real-time on the seller dashboard with buyer messages appearing on the left in white bubbles and seller messages on the right in orange gradient bubbles, creating a familiar chat interface aesthetic.</p>
+
+        <h2>6. Arbitrum Layer 2 for AI Micropayments</h2>
+
+        <h3>6.1 Why Arbitrum?</h3>
+        <p>Arbitrum is an Ethereum Layer 2 optimistic rollup that provides 10-100x lower gas costs than Ethereum mainnet, sub-second confirmation times (~250ms block time), and full EVM compatibility. For AI-to-AI payments, these properties enable micropayments and real-time commerce.</p>
+
+        <h3>6.2 Performance Comparison</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Ethereum Mainnet</th>
+                    <th>Arbitrum Sepolia</th>
+                    <th>Improvement</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Gas Cost per Transaction</td>
+                    <td>~$1.50</td>
+                    <td>~$0.001</td>
+                    <td><strong>1500x cheaper</strong></td>
+                </tr>
+                <tr>
+                    <td>Block Time</td>
+                    <td>~12 seconds</td>
+                    <td>~250ms</td>
+                    <td><strong>48x faster</strong></td>
+                </tr>
+                <tr>
+                    <td>Total Payment Time</td>
+                    <td>15+ minutes</td>
+                    <td>~750ms</td>
+                    <td><strong>1200x faster</strong></td>
+                </tr>
+                <tr>
+                    <td>Micropayment Viable?</td>
+                    <td>❌ No ($1.50 gas > $0.05 payment)</td>
+                    <td>✅ Yes ($0.004 gas < $2-10 payment)</td>
+                    <td><strong>Enabled</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight-box">
+            <strong>Economic Viability:</strong> On Ethereum mainnet, $1.50 gas costs make payments under ~$50 economically unviable. On Arbitrum, $0.004 transaction costs enable agents to transact for services costing as little as $0.10 while maintaining sub-5% overhead.
+        </div>
+
+        <h3>6.3 Payment Execution Flow</h3>
+        <p>The complete payment flow involves three on-chain transactions:</p>
+
+        <ol>
+            <li><strong>Token Approval (45,000 gas):</strong> Buyer calls <code>token.approve(registryAddress, amount)</code> to authorize the registry to transfer tokens. Confirms in ~250ms with ~$0.001 cost.</li>
+            <li><strong>Invoice Payment (65,000 gas):</strong> Buyer calls <code>registry.payInvoice(invoiceId)</code>. The contract verifies the invoice exists and is unpaid, transfers tokens from buyer to registry (escrow), and marks <code>invoice.paid = true</code>. Confirms in ~250ms with ~$0.0015 cost.</li>
+            <li><strong>Withdrawal (50,000 gas):</strong> After service delivery, seller calls <code>registry.withdraw(invoiceId)</code>. The contract verifies the caller is the registered seller and payment is complete, then transfers tokens from registry to seller wallet. Confirms in ~250ms with ~$0.0012 cost.</li>
+        </ol>
+
+        <p><strong>Total:</strong> ~$0.004 USD transaction cost and ~750ms total time for a complete payment cycle including escrow and settlement.</p>
+
+        <h2>7. AI Generation Pipeline</h2>
+
+        <h3>7.1 Two-Stage Generation Process</h3>
+        <p>TrufflePay employs a two-stage AI pipeline optimized for portrait accuracy and style consistency.</p>
+
+        <h4>Stage 1: GPT-4 Vision Analysis</h4>
+        <p>The system uploads the pet photo to GPT-4o with a detailed prompt requesting analysis of:</p>
+        <ul>
+            <li>Pose and orientation (frontal view, side profile, sitting, standing)</li>
+            <li>Breed characteristics and facial features</li>
+            <li>Coat color and pattern specific to this individual dog</li>
+            <li>Ear shape, eye color, nose, mouth details</li>
+            <li>Distinctive markings that uniquely identify this pet</li>
+        </ul>
+        <p>The model uses <code>detail: "high"</code> mode and generates up to 400 tokens of detailed description optimized for DALL-E 3 input.</p>
+
+        <h4>Stage 2: DALL-E 3 Portrait Generation</h4>
+        <p>The GPT-4 Vision description is combined with style-specific prompts tailored to each seller:</p>
+        <ul>
+            <li><strong>PetPainter:</strong> Watercolor style with soft flowing strokes, gentle color bleeds, warm palette, and natural lighting. Uses <code>style: "natural"</code> and <code>quality: "standard"</code>.</li>
+            <li><strong>CartoonPup:</strong> Anime/cartoon style with big expressive eyes, kawaii aesthetic, and professional character design. Uses <code>style: "vivid"</code> and <code>quality: "standard"</code>.</li>
+            <li><strong>ModernArtist:</strong> Contemporary style with dreamy ethereal lighting, magical realism atmosphere, and museum-quality finish. Uses <code>style: "natural"</code> and <code>quality: "hd"</code> for premium tier.</li>
+        </ul>
+        <p>All portraits are generated at 1024x1024px resolution. Generation time averages 15-30 seconds depending on OpenAI API load.</p>
+
+        <h3>7.2 NFT Minting (Premium Tier)</h3>
+        <p>ModernArtist (10 ENC tier) automatically mints an ERC-721 NFT to the buyer's wallet upon successful payment and portrait generation. The <code>mintPortrait()</code> function stores on-chain metadata including:</p>
+        <ul>
+            <li>Artist name: "ModernArtist"</li>
+            <li>Style: "modern contemporary"</li>
+            <li>Token URI: URL pointing to the generated artwork</li>
+            <li>Timestamp: Block timestamp of minting</li>
+        </ul>
+        <p>The NFT serves as proof of purchase, ownership certificate, and value differentiation. Buyers can view their NFT on Arbiscan, import it to MetaMask, or view it on OpenSea testnet after ~10 minutes.</p>
+
+        <h2>8. Key Innovations</h2>
+
+        <h3>8.1 Autonomous AI Commerce</h3>
+        <p>TrufflePay demonstrates a paradigm shift: AI agents as economic actors. GPT-4o agents make purchasing decisions, negotiate using strategic reasoning, execute blockchain payments, and verify service delivery—all without human input beyond initial requirement specification. This represents the first step toward an economy where AI agents transact independently at scale.</p>
+
+        <h3>8.2 HTTP 402 as Practical Payment Gate</h3>
+        <p>The HTTP 402 Payment Required status code, defined in 1997 but rarely implemented, becomes practical with blockchain verification. Services return structured invoice data, buyers pay on-chain, and sellers verify trustlessly via smart contract queries. This creates permissionless payment gates without PayPal, Stripe, or other centralized processors.</p>
+
+        <h3>8.3 Real-time Blockchain Commerce</h3>
+        <p>Arbitrum L2's 250ms block times and sub-cent transaction costs enable AI agents to transact at machine speed. The total payment cycle (approve, pay, withdraw) completes in under 1 second with $0.004 total cost, making micropayments economically viable for the first time in blockchain history.</p>
+
+        <h3>8.4 Strategic Agent Negotiation</h3>
+        <p>Rather than simple price averaging, TrufflePay implements game-theoretic negotiation tactics: anchoring, value justification, strategic concessions, and final offers. Agents reason about budget constraints, market rates, and quality signals to reach mutually beneficial agreements. This demonstrates sophisticated AI reasoning beyond simple optimization.</p>
+
+        <h3>8.5 NFT as Proof of Service</h3>
+        <p>ERC-721 NFTs serve triple purpose: on-chain receipt, transferable ownership certificate, and premium tier differentiator. This creates a digital provenance chain for AI-generated artwork, enabling secondary markets and verifiable authenticity.</p>
+
+        <h2>9. Future Directions</h2>
+
+        <h3>9.1 Short-term Enhancements</h3>
+        <ul>
+            <li><strong>Multi-token Support:</strong> Accept USDC, DAI, and other stablecoins for price stability</li>
+            <li><strong>Dispute Resolution:</strong> Arbitration mechanism for failed deliveries or quality disputes</li>
+            <li><strong>Reputation Scoring:</strong> On-chain reputation system for sellers based on transaction history</li>
+            <li><strong>Bulk Discounts:</strong> Volume pricing for multiple orders</li>
+        </ul>
+
+        <h3>9.2 Medium-term Development</h3>
+        <ul>
+            <li><strong>Mainnet Deployment:</strong> Launch on Arbitrum mainnet with real economic value</li>
+            <li><strong>Agent Framework Integration:</strong> Plugin support for AutoGPT, LangChain, and other agent frameworks</li>
+            <li><strong>Marketplace Discovery:</strong> Search, filters, ratings, and recommendations</li>
+            <li><strong>Streaming Payments:</strong> Pay-per-second for long-running AI services</li>
+        </ul>
+
+        <h3>9.3 Long-term Vision</h3>
+        <ul>
+            <li><strong>Cross-chain Payments:</strong> Interoperability between Arbitrum, Optimism, Base, and other L2s</li>
+            <li><strong>Zero-Knowledge Privacy:</strong> ZK-proofs for confidential negotiation amounts</li>
+            <li><strong>DAO Governance:</strong> Community-governed marketplace rules and fee structures</li>
+            <li><strong>Agent-owned Businesses:</strong> Seller services operated entirely by autonomous agent wallets</li>
+        </ul>
+
+        <h2>10. Implementation Guide (Brief)</h2>
+
+        <h3>10.1 Prerequisites</h3>
+        <ul>
+            <li>Node.js 18+ and npm</li>
+            <li>OpenAI API key (<a href="https://platform.openai.com/api-keys">platform.openai.com</a>)</li>
+            <li>Arbitrum Sepolia RPC URL (Alchemy or Infura)</li>
+            <li>Arbitrum Sepolia testnet ETH (from faucet)</li>
+        </ul>
+
+        <h3>10.2 Quick Start</h3>
+        <ol>
+            <li><strong>Clone and Install:</strong> <code>git clone [repository]</code> and <code>npm install</code></li>
+            <li><strong>Configure Environment:</strong> Copy <code>.env.example</code> to <code>.env</code> and fill in RPC_URL, OPENAI_API_KEY, and wallet private keys</li>
+            <li><strong>Deploy Contracts:</strong> Run <code>npx hardhat run scripts/deploy.js --network arbitrumSepolia</code></li>
+            <li><strong>Update Contract Addresses:</strong> Copy deployed addresses to <code>.env</code> (TOKEN_ADDRESS, PAYMENT_REGISTRY_ADDRESS, NFT_CONTRACT_ADDRESS)</li>
+            <li><strong>Fund Wallets:</strong> Run <code>npx hardhat run scripts/fundWallets.js --network arbitrumSepolia</code></li>
+            <li><strong>Start Services:</strong> Launch api-server.js (port 3000) and three seller servers (ports 3031-3033) in separate terminals</li>
+            <li><strong>Access Interfaces:</strong> Open <code>http://localhost:3000/</code> for buyer interface and <code>http://localhost:3000/seller</code> for seller dashboard</li>
+        </ol>
+
+        <h3>10.3 Project Structure</h3>
+        <ul>
+            <li><code>contracts/</code> - Solidity smart contracts (EncodeToken, PaymentRegistry, PetPortraitNFT)</li>
+            <li><code>scripts/</code> - Deployment and wallet funding scripts</li>
+            <li><code>backend/sellers/</code> - Three seller services (petpainter, cartoonpup, modernartist)</li>
+            <li><code>frontend/</code> - API server bridge and HTML interfaces</li>
+        </ul>
+
+        <h2>11. Deployed Contracts</h2>
+        <p>All contracts are deployed on <strong>Arbitrum Sepolia</strong> testnet and publicly verifiable on Arbiscan:</p>
+        <ul>
+            <li><strong>EncodeToken (ERC-20):</strong> <code>0x44a7435660D90889b218F7Bd0f21884aE01419Ac</code></li>
+            <li><strong>PaymentRegistry:</strong> <code>0x1c1fE24391D6BAdaBa753070469072aeD2C5C5Fd</code></li>
+            <li><strong>PetPortraitNFT (ERC-721):</strong> Deployed per seller instance</li>
+        </ul>
+
+        <h2>12. Conclusion</h2>
+        <p>TrufflePay demonstrates that autonomous AI-to-AI commerce is not only technically feasible but economically practical. By combining strategic agent negotiation (MCP), trustless payment gates (AP2/HTTP 402), and cost-effective blockchain settlement (Arbitrum L2), the system achieves real-time autonomous transactions at sub-cent costs.</p>
+
+        <p>This proof-of-concept opens pathways toward a future where AI agents operate as independent economic actors—discovering services, negotiating terms, executing payments, and verifying delivery at machine speed without human intermediation. The implications extend beyond pet portraits to any AI service marketplace: content generation, data analysis, API access, computational resources, and knowledge work.</p>
+
+        <p>As AI capabilities expand and blockchain infrastructure matures, systems like TrufflePay may become the foundation for a new internet economy where billions of AI agents transact autonomously, creating value and exchanging services at scales impossible for human-mediated commerce.</p>
+
+        <div class="footer">
+            <p><strong>Built with:</strong> Arbitrum L2 | OpenAI GPT-4o & DALL-E 3 | Ethers.js v6 | Solidity 0.8.20 | Node.js & Express</p>
+            <p><strong>Demonstrating:</strong> AP2 (Agentic Payment Protocol) | HTTP 402 Payment Required | MCP (Model Context Protocol) | AI-to-AI Autonomous Commerce</p>
+            <p style="margin-top: 1.5em;">MIT License © 2025 TrufflePay Contributors</p>
+        </div>
+    </div>
+</body>
+</html>
