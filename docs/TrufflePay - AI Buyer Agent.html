@@ -1235,7 +1235,43 @@
                 </div>
             `;
         }
-    </script>
+    
+    // STATIC DEMO: Disable interactive elements
+    window.addEventListener('load', function() {
+        // Override startBuyerAgent function
+        window.startBuyerAgent = function() {
+            alert('This is a static demo and does not support full functionalities');
+        };
+        
+        // Disable file upload - remove all existing listeners first
+        var uploadArea = document.getElementById('uploadArea');
+        var fileInput = document.getElementById('fileInput');
+        
+        if (uploadArea) {
+            // Clone node to remove all existing event listeners
+            var newUploadArea = uploadArea.cloneNode(true);
+            uploadArea.parentNode.replaceChild(newUploadArea, uploadArea);
+            newUploadArea.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('This is a static demo and does not support full functionalities');
+                return false;
+            };
+        }
+        
+        if (fileInput) {
+            var newFileInput = fileInput.cloneNode(true);
+            fileInput.parentNode.replaceChild(newFileInput, fileInput);
+            newFileInput.onchange = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('This is a static demo and does not support full functionalities');
+                return false;
+            };
+        }
+    });
+
+</script>
 
 
 </body></html>
