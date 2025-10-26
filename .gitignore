@@ -1,0 +1,62 @@
+# Dependencies
+node_modules/
+
+# Environment variables (NEVER commit these!)
+.env
+.env.local
+.env.*.local
+
+# Seller data (runtime generated, contains invoice data)
+invoiceStore.json
+**/invoiceStore.json
+
+# Temporary files (uploaded images)
+tmp/
+**/tmp/
+
+# Generated assets (AI-generated portraits)
+assets/
+**/assets/
+
+# Hardhat cache and artifacts
+cache/
+artifacts/
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# OS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+.claude/
+*.sublime-project
+*.sublime-workspace
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Build outputs
+dist/
+build/

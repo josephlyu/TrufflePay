@@ -1,0 +1,13 @@
+{
+  "name": "buyer-agent",
+  "version": "1.0.0",
+  "main": "buy.js",
+  "scripts": {
+    "buy": "node buy.js"
+  },
+  "dependencies": {
+    "ethers": "^6.0.0",
+    "node-fetch": "^2.6.7",
+    "dotenv": "^16.0.0"
+  }
+}

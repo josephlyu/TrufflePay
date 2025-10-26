@@ -1,0 +1,17 @@
+{
+  "name": "trufflepay-frontend",
+  "version": "1.0.0",
+  "description": "TrufflePay - AI-to-AI Marketplace Frontend",
+  "main": "api-server.js",
+  "scripts": {
+    "start": "node api-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "ethers": "^6.0.0",
+    "openai": "^4.0.0",
+    "node-fetch": "^3.3.0",
+    "dotenv": "^16.0.0"
+  }
+}

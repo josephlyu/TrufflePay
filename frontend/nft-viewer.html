@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Portrait Viewer - TrufflePay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .viewer-container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .viewer-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .viewer-header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .viewer-header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .viewer-content {
+            padding: 40px;
+        }
+
+        .nft-image-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .nft-image {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            font-size: 1.2em;
+            color: #666;
+            padding: 60px;
+            text-align: center;
+        }
+
+        .metadata-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .metadata-section h2 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 15px;
+            font-size: 0.95em;
+        }
+
+        .metadata-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .metadata-value {
+            color: #333;
+            word-break: break-all;
+            font-family: monospace;
+        }
+
+        .blockchain-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .blockchain-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .blockchain-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .error-message {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            color: #856404;
+            text-align: center;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .back-link:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="viewer-container">
+        <div class="viewer-header">
+            <h1>
+                <span style="font-size: 1.5em;">🎨</span>
+                NFT Portrait Certificate
+            </h1>
+            <p>Premium Pet Portrait on Arbitrum Sepolia</p>
+        </div>
+
+        <div class="viewer-content" id="content">
+            <div class="loading">
+                <div>Loading NFT details...</div>
+                <div style="margin-top: 10px; font-size: 0.8em; color: #999;">Please wait</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadNFT() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const tokenId = params.get('tokenId');
+                const contractAddress = params.get('contract');
+                const imageUrl = params.get('image');
+
+                if (!tokenId || !contractAddress) {
+                    throw new Error('Missing required parameters: tokenId and contract');
+                }
+
+                // Display NFT details
+                const content = document.getElementById('content');
+                content.innerHTML = `
+                    <div class="nft-image-container">
+                        ${imageUrl ? `
+                            <img src="${imageUrl}" alt="NFT Portrait" class="nft-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div style="display: none; padding: 40px; color: #666;">
+                                <div style="font-size: 3em; margin-bottom: 10px;">🖼️</div>
+                                <div>Image not available</div>
+                            </div>
+                        ` : `
+                            <div style="padding: 40px; color: #666;">
+                                <div style="font-size: 3em; margin-bottom: 10px;">🖼️</div>
+                                <div>Image URL not provided</div>
+                            </div>
+                        `}
+                    </div>
+
+                    <div class="metadata-section">
+                        <h2>
+                            <span>📋</span>
+                            NFT Metadata
+                        </h2>
+                        <div class="metadata-grid">
+                            <div class="metadata-label">Token ID:</div>
+                            <div class="metadata-value">#${tokenId}</div>
+
+                            <div class="metadata-label">Contract Address:</div>
+                            <div class="metadata-value">${contractAddress}</div>
+
+                            <div class="metadata-label">Blockchain:</div>
+                            <div class="metadata-value">Arbitrum Sepolia Testnet</div>
+
+                            <div class="metadata-label">Standard:</div>
+                            <div class="metadata-value">ERC-721</div>
+
+                            ${imageUrl ? `
+                                <div class="metadata-label">Artwork URI:</div>
+                                <div class="metadata-value">${imageUrl}</div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="blockchain-links">
+                        <a href="https://sepolia.arbiscan.io/token/${contractAddress}?a=${tokenId}"
+                           target="_blank"
+                           class="blockchain-link">
+                            View on Arbiscan ↗
+                        </a>
+                        ${imageUrl ? `
+                            <a href="${imageUrl}"
+                               target="_blank"
+                               class="blockchain-link">
+                                Open Full Image ↗
+                            </a>
+                        ` : ''}
+                    </div>
+
+                    <div style="text-align: center;">
+                        <a href="/" class="back-link">← Back to TrufflePay</a>
+                    </div>
+                `;
+
+            } catch (err) {
+                console.error('Error loading NFT:', err);
+                document.getElementById('content').innerHTML = `
+                    <div class="error-message">
+                        <div style="font-size: 1.5em; margin-bottom: 10px;">⚠️</div>
+                        <div style="font-weight: 600; margin-bottom: 10px;">Error Loading NFT</div>
+                        <div>${err.message}</div>
+                        <div style="margin-top: 15px;">
+                            <a href="/" class="back-link">← Back to TrufflePay</a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Load NFT when page loads
+        loadNFT();
+    </script>
+</body>
+</html>

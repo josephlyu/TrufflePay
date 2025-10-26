@@ -1,0 +1,44 @@
+[
+  {
+    "id": "petpainter",
+    "name": "PetPainter",
+    "endpoint": "http://localhost:3031",
+    "style": "watercolor",
+    "price": "3",
+    "token": "ENC",
+    "description": "Traditional watercolor pet portraits with soft brushstrokes and warm, natural tones",
+    "specialties": ["traditional art", "watercolor painting", "soft colors", "elegant"],
+    "targetAudience": "Art collectors, traditional home decor enthusiasts, gift buyers",
+    "nftIncluded": false,
+    "quality": "Standard",
+    "minPrice": "1.8"
+  },
+  {
+    "id": "cartoonpup",
+    "name": "CartoonPup",
+    "endpoint": "http://localhost:3032",
+    "style": "cartoon anime",
+    "price": "5",
+    "token": "ENC",
+    "description": "Vibrant cartoon and anime-style pet portraits with kawaii aesthetic and big expressive eyes",
+    "specialties": ["cartoon", "anime", "kawaii", "cute", "vibrant colors"],
+    "targetAudience": "Anime fans, young pet owners, merchandise creators",
+    "nftIncluded": false,
+    "quality": "High",
+    "minPrice": "3"
+  },
+  {
+    "id": "modernartist",
+    "name": "ModernArtist",
+    "endpoint": "http://localhost:3033",
+    "style": "modern contemporary",
+    "price": "10",
+    "token": "ENC",
+    "description": "Premium modern and contemporary art portraits with sophisticated color palettes and museum-quality interpretation",
+    "specialties": ["contemporary art", "modern art", "abstract elements", "sophisticated", "premium quality"],
+    "targetAudience": "Art collectors, interior designers, luxury homeowners, gallery buyers",
+    "nftIncluded": true,
+    "quality": "High",
+    "minPrice": "6"
+  }
+]

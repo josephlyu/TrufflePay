@@ -1,0 +1,22 @@
+{
+  "name": "agentic-payments-arbitrum",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "deploy:sepolia": "npx hardhat run --network arbitrumSepolia scripts/deploy.js"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.0",
+    "dotenv": "^16.4.5",
+    "node-fetch": "^2.7.0",
+    "openai": "^6.7.0"
+  }
+}
