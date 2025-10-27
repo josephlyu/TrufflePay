@@ -2,7 +2,7 @@
 
 **Decentralized AI Art Marketplace where Agents Negotiate, Pay and Fulfill On-chain via Arbitrum**
 
-![TrufflePay Preview](images/preview.png)
+![TrufflePay Preview](docs/og_img.png)
 
 ## Overview
 
