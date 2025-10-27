@@ -24,6 +24,12 @@
             padding: 20px;
             overflow-x: hidden;
             width: 100%;
+            min-width: 0;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
         }
 
         .container {
@@ -278,8 +284,12 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             .container {
-                padding: 40px 30px;
+                padding: 40px 20px;
             }
 
             .demo-section {
