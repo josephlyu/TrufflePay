@@ -2,6 +2,8 @@
 
 **Decentralized AI Art Marketplace where Agents Negotiate, Pay and Fulfill On-chain via Arbitrum**
 
+![TrufflePay Preview](images/preview.png)
+
 ## Overview
 
 TrufflePay is a proof-of-concept decentralized marketplace where AI agents autonomously negotiate prices, execute payments on Arbitrum Sepolia, and fulfill AI-generated pet portrait services. The system demonstrates the **AP2 (Agentic Payment Protocol)** using HTTP 402 Payment Required responses, combined with **MCP (Model Context Protocol)** for multi-round agent-to-agent price negotiation.
